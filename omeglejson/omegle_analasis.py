@@ -85,21 +85,24 @@ class ConversationList(list):
         return self.remove_signs(flatten([conv.get_words() for conv in self.conversations]))
     
     def get_conv_byWord(self,word):
-        new_conv_list=[]
-        for conv in self.conversations:
-            for messege in conv.messeges:            
-                if word in messege['m']:                   
-                    new_conv_list.append(conv)
-                    pass
-        return new_conv_list
+        return [conv for conv in self.conversations for messege in conv.messeges if word in messege['m']]
+        
 
-    def get_conv_byDisconnected(self,dis):
-        new_conv_list=[]
-        for conv in self.conversations:        
-            if dis.upper() == conv.who_disconnected:                   
-                new_conv_list.append(conv)
-                pass
-        return new_conv_list
+    def get_conv_byDisconnected(self,dis): #S for stranger Y for you
+        return [conv for conv in self.conversations if conv.who_disconnected==dis.upper()]
+        
+
+    def __len__(self):
+        return len(self.conversations)
+
+    def get_conv_byLen(self,length): #if length>0 get all conv above length if length<0  get all conv below abs(length)
+        if length>0:
+            return [conv for conv in self.conversations if len(conv)>=length]
+        elif length<0:
+            return [conv for conv in self.conversations if len(conv)<=length]
+        
+        
+
 
         
 
@@ -120,8 +123,8 @@ class ConversationList(list):
 if __name__ == '__main__':
 
     def get_word_histogram(conv_list):
-        onv_list= ConversationList()
-        # print(([len(conv) for conv in conv_list.conversations]))
+    
+        
         all_words = conv_list.get_all_words()
         word_histogram = {}
         for word in all_words:
@@ -131,12 +134,12 @@ if __name__ == '__main__':
                 word_histogram[word]+=1
         return dict(sorted(word_histogram.items(),key= lambda item: item[1]))
 
-
+    # print(([len(conv) for conv in conv_list.conversations]))
 
     conv_list= ConversationList()
     # print(([len(conv) for conv in conv_list.conversations]))
     
-    word_convs= conv_list.get_conv_byWord('מכות')
+    word_convs= conv_list.get_conv_byWord('יואב')
 
 
     print(word_convs[0])
