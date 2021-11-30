@@ -127,7 +127,7 @@ counter = 0
 
 # Window setup
 root = Tk()
-root.title('Fuck')
+root.title('Viewer')
 root.geometry("1000x600")
 
 text_frame = Frame(root)
@@ -205,7 +205,5 @@ action_frame.pack()
 
 copy_button = Button(action_frame, text = 'Copy to clipboard', command=partial(copy))
 copy_button.grid(row=0, column=2)
-
-
 
 root.mainloop()
