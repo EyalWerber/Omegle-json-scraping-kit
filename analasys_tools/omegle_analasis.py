@@ -139,10 +139,8 @@ if __name__ == '__main__':
     conv_list= ConversationList()
     # print(([len(conv) for conv in conv_list.conversations]))
     
-    word_convs= conv_list.get_conv_byWord('יואב')
-
-
-    print(word_convs[0])
+    
+    print(conv_list)
    
     
     
